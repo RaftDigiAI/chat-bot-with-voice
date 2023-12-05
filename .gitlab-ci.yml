@@ -1,0 +1,17 @@
+deploy:
+  image: docker:latest
+  stage: deploy
+  when: manual
+  tags:
+    - rosrid
+  script:
+    - apk add --update curl
+    - curl -sL https://github.com/digitalocean/doctl/releases/download/v1.64.0/doctl-1.64.0-linux-amd64.tar.gz | tar xz
+    - mv doctl /usr/local/bin/
+    - doctl registry login --access-token $DIGITALOCEAN_ACCESS_TOKEN
+    - docker build -f Dockerfile . -t letoile-bot
+    - docker tag letoile-bot  registry.digitalocean.com/raft-ai//letoile-bot
+    - docker push registry.digitalocean.com/aleks-registry/letoile-bot
+
+  only:
+    - main

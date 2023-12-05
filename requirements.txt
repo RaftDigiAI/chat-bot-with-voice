@@ -1,0 +1,8 @@
+langchain
+streamlit
+streamlit-chat
+python-dotenv
+streamlit-audiorec
+asyncio
+yandex-speechkit
+aiohttp
